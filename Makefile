@@ -1,5 +1,5 @@
 CC      = gcc
-CFLAGS  = -Wall -W -Wextra -std=c99 -g
+CFLAGS  = -Wall -W -Wextra -std=c99 -O3
 NAME    = solver
 
 $(NAME): .solver.o .main.o

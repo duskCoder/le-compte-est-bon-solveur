@@ -3,6 +3,7 @@
 #include <malloc.h>
 #include <limits.h>
 #include <stdint.h>
+#include <assert.h>
 #include "solver.h"
 
 #define _log(...)   fprintf(stderr, __VA_ARGS__)
@@ -39,6 +40,7 @@ static void display_solution(void)
 {
     puts("--------------------------");
     puts("found a (better) solution:");
+
     for (int i = 5; i >= solution_g.level; i--) {
 	char op;
 	int _result;
@@ -59,6 +61,9 @@ static void display_solution(void)
 	    case division:
 		op = '/';
 		_result = solution_g.computation[i].v1 / solution_g.computation[i].v2;
+		break;
+	    default:
+		assert (0);
 		break;
 	}
 
