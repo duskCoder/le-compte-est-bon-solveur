@@ -30,10 +30,10 @@ typedef struct {
 } solution_t;
 
 static solution_t solution_g;
-static vect_t *vect_g;
+static const vect_t *vect_g;
 
 static int result;
-static int closer = -1;
+static int closer;
 
 /* {{{ display */
 
@@ -78,7 +78,7 @@ static void display_solution(void)
 /* }}} */
 
     static inline
-void construct_new_vect(vect_t *new_vect, vect_t *vect, unsigned v1, unsigned v2)
+void construct_new_vect(vect_t *new_vect, const vect_t *vect, unsigned v1, unsigned v2)
 {
     unsigned j = 0;
 
@@ -91,7 +91,7 @@ void construct_new_vect(vect_t *new_vect, vect_t *vect, unsigned v1, unsigned v2
     }
 }
 
-static void solve_rec(vect_t *vect)
+static void solve_rec(const vect_t *vect)
 {
     vect_t new_vect;
 
@@ -160,10 +160,12 @@ static void solve_rec(vect_t *vect)
 }
 
 /* public function to use */
-void solve(vect_t *vect, int _result)
+void solve(const vect_t *vect, int _result)
 {
+    closer = -1;
     vect_g = vect;
     result = _result;
+
     solution_g.computation = malloc(sizeof(computation_t) * vect->len);
     solution_g.level       = 0;
 

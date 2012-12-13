@@ -6,6 +6,6 @@ typedef struct {
     unsigned len;
 } vect_t;
 
-void solve(vect_t *vect, int result);
+void solve(const vect_t *vect, int result);
 
 #endif /* SOLVER_H */
