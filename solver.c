@@ -12,10 +12,10 @@
 typedef uint8_t byte;
 
 enum {
-    addition,
-    substraction,
-    multiplication,
-    division,
+    addition       ,
+    substraction   ,
+    multiplication ,
+    division       ,
 };
 
 typedef struct {
@@ -30,6 +30,7 @@ typedef struct {
 } solution_t;
 
 static solution_t solution_g;
+static vect_t *vect_g;
 
 static int result;
 static int closer = -1;
@@ -38,10 +39,9 @@ static int closer = -1;
 
 static void display_solution(void)
 {
-    puts("--------------------------");
     puts("found a (better) solution:");
 
-    for (int i = 5; i >= solution_g.level; i--) {
+    for (int i = vect_g->len - 1; i >= solution_g.level; i--) {
 	char op;
 	int _result;
 
@@ -72,6 +72,7 @@ static void display_solution(void)
 		, solution_g.computation[i].v2
 		, _result);
     }
+    puts("--------------------------");
 }
 
 /* }}} */
@@ -161,13 +162,16 @@ static void solve_rec(vect_t *vect)
 /* public function to use */
 void solve(vect_t *vect, int _result)
 {
+    vect_g = vect;
     result = _result;
     solution_g.computation = malloc(sizeof(computation_t) * vect->len);
     solution_g.level       = 0;
 
     solve_rec(vect);
 
-    if (closer != result) {
+    if (closer == result) {
+	puts("Le compte est bon!");
+    } else {
 	result = closer;
 	closer = -1;
 	solve_rec(vect);
